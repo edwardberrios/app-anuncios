@@ -1,0 +1,396 @@
+<style>
+  :root {
+    --font-sans: 'Segoe UI', Arial, sans-serif;
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #666666;
+    --color-text-tertiary: #999999;
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f4f4f4;
+    --color-border-primary: #cccccc;
+    --color-border-secondary: #dddddd;
+    --color-border-tertiary: #eeeeee;
+    --border-radius-md: 6px;
+    --border-radius-lg: 10px;
+}
+/* Asegura que el banner de alertas no se escape del ancho centrado */
+#banner-alertas {
+    width: 100%;
+}
+.app {
+    padding: 1rem;
+    font-family: var(--font-sans);
+    
+    /* ESTO ES LO QUE CENTRA Y LIMITA EL ANCHO */
+    max-width: 800px; /* Limita el ancho total a 800 píxeles */
+    margin: 0 auto;   /* El "auto" en los márgenes laterales centra el bloque */
+}
+h1{
+    text-align: center;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.filter-row {
+  justify-content: center;
+}
+.filter-btn1 {
+  background-color: #326ead; /* Color principal */
+  color: #ffffff; /* Color del texto */
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efecto de elevación */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  width: 15%;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+.app{padding:1rem 0;font-family:var(--font-sans)}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.topbar p{font-size:13px;color:var(--color-text-secondary);margin-top:2px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1.25rem}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 14px}
+.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:3px}
+.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.alert-banner{border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:1.25rem;display:flex;align-items:flex-start;gap:10px;font-size:13px}
+.alert-banner i{font-size:18px;flex-shrink:0;margin-top:1px}
+.alert-warn{background:#FAEEDA;color:#633806;border:0.5px solid #EF9F27}
+.alert-warn i{color:#854F0B}
+.alert-ok{background:#EAF3DE;color:#27500A;border:0.5px solid #97C459}
+.alert-ok i{color:#3B6D11}
+.alert-list{display:flex;flex-direction:column;gap:6px;width:100%}
+.form-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1.25rem}
+.form-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:10px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:12px;color:var(--color-text-secondary)}
+.form-group input,.form-group select{font-size:13px;font-family:var(--font-sans)}
+.form-group textarea{font-size:13px;font-family:var(--font-sans);padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical;min-height:60px}
+.btn-add{padding:8px 16px;font-size:13px;font-family:var(--font-sans);display:flex;align-items:center;gap:5px;cursor:pointer}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.section-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{font-size:12px;padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:10px;background:none;cursor:pointer;color:var(--color-text-secondary);font-family:var(--font-sans)}
+.filter-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+.contracts-list{display:flex;flex-direction:column;gap:8px}
+.contract-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 14px}
+.contract-card.alerta-hoy{border-color:#EF9F27;border-width:1px}
+.contract-card.publicado{opacity:.65}
+.cc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cc-main{flex:1}
+.cc-banco{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.cc-meta{font-size:12px;color:var(--color-text-secondary);margin-top:2px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cc-actions{display:flex;gap:4px;flex-shrink:0}
+.cc-btn{background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);padding:3px;border-radius:4px;font-size:16px;display:flex;align-items:center}
+.cc-btn:hover{color:var(--color-text-primary)}
+.cc-btn.del:hover{color:#D85A30}
+.pill{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;white-space:nowrap}
+.pill-heraldo{background:#E6F1FB;color:#0C447C}
+.pill-laprensa{background:#EEEDFE;color:#3C3489}
+.pill-subasta{background:#FAEEDA;color:#633806}
+.pill-edicto{background:#EAF3DE;color:#27500A}
+.pill-alerta{background:#FAEEDA;color:#633806}
+.pill-publicado{background:#EAF3DE;color:#27500A}
+.pill-pendiente{background:#F1EFE8;color:#444441}
+.cc-nota{font-size:12px;color:var(--color-text-secondary);margin-top:6px;padding-top:6px;border-top:0.5px solid var(--color-border-tertiary)}
+.empty-state{text-align:center;padding:2rem;color:var(--color-text-tertiary);font-size:13px}
+.empty-state i{font-size:30px;display:block;margin-bottom:8px;opacity:.4}
+.dias-badge{font-size:11px;font-weight:500}
+.dias-hoy{color:#854F0B}
+.dias-manana{color:#185FA5}
+.dias-pasado{color:#A32D2D}
+.dias-futuro{color:#3B6D11}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<h1 class="sr-only">Sistema Filtro</h1>
+<div class="app">
+  <div class="topbar">
+    <div>
+      <h1>Seguimiento de anuncios</h1>
+      <p id="fecha-hoy"></p>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-label">Total contratos</div><div class="stat-val" id="st-total">0</div></div>
+    <div class="stat"><div class="stat-label">Alerta mañana</div><div class="stat-val" id="st-alerta" style="color:#854F0B">0</div></div>
+    <div class="stat"><div class="stat-label">Pendientes</div><div class="stat-val" id="st-pend">0</div></div>
+    <div class="stat"><div class="stat-label">Publicados</div><div class="stat-val" id="st-pub" style="color:#3B6D11">0</div></div>
+  </div>
+
+  <div id="banner-alertas"></div>
+
+  <div class="form-card">
+    <div class="form-title"><i class="ti ti-plus" aria-hidden="true"></i> Nuevo contrato</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>N° contrato</label>
+        <input type="text" id="f-contrato" placeholder="Ej: 2024-001" />
+      </div>
+      <div class="form-group">
+        <label>Banco / Cliente</label>
+        <input type="text" id="f-banco" placeholder="Ej: Banco Atlántida" />
+      </div>
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="f-tipo">
+          <option value="Subasta">Subasta</option>
+          <option value="Edicto">Edicto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Medio</label>
+        <select id="f-medio">
+          <option value="Heraldo">Heraldo</option>
+          <option value="La Prensa">La Prensa</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fecha de publicación</label>
+        <input type="date" id="f-fecha" />
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:10px">
+      <label>Observaciones (opcional)</label>
+      <textarea id="f-nota" placeholder="Detalles del contrato, instrucciones especiales..."></textarea>
+    </div>
+    <button class="btn-add" onclick="agregarContrato()"><i class="ti ti-plus" aria-hidden="true"></i> Registrar contrato</button>
+  </div>
+
+  <div class="section-header">
+    <span class="section-title">Contratos registrados</span>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFiltro('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="setFiltro('alerta',this)">Alertas</button>
+      <button class="filter-btn" onclick="setFiltro('pendiente',this)">Pendientes</button>
+      <button class="filter-btn" onclick="setFiltro('publicado',this)">Publicados</button>
+    </div>
+  </div>
+  <div class="contracts-list" id="lista-contratos"></div>
+</div>
+
+<div class="filter-row">
+    <button class="filter-btn1" onclick="limpiarPublicados()">Limpiar Publicados</button>
+</div>
+
+<script>
+const CKEY = 'anuncios_clientes_v2';
+let contratos = [];
+let filtro = 'todos';
+
+const hoy = () => {
+  const d = new Date(); d.setHours(0,0,0,0); return d;
+};
+
+const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function diasDiff(fechaStr) {
+  const pub = new Date(fechaStr + 'T00:00:00');
+  const diff = pub - hoy();
+  return Math.round(diff / 86400000);
+}
+
+function estadoContrato(c) {
+  const d = diasDiff(c.fecha);
+  if (c.publicado) return 'publicado';
+  if (d < 0) return 'vencido';
+  return 'pendiente';
+}
+
+function alertaActiva(c) {
+  if (c.publicado) return false;
+  const d = diasDiff(c.fecha);
+  return d === 1 || d === 0;
+}
+
+// Cargar desde Supabase
+async function cargar() {
+    const { data, error } = await supabase
+        .from('contratos') // Asegúrate que tu tabla en Supabase se llame "contratos"
+        .select('*');
+
+    if (error) {
+        console.error("Error al cargar:", error);
+    } else {
+        contratos = data || [];
+        render();
+    }
+}
+
+// Guardar en Supabase
+async function agregarContrato() {
+    const nuevo = {
+        contrato: document.getElementById('f-contrato').value.trim(),
+        banco: document.getElementById('f-banco').value.trim(),
+        tipo: document.getElementById('f-tipo').value,
+        medio: document.getElementById('f-medio').value,
+        fecha: document.getElementById('f-fecha').value,
+        nota: document.getElementById('f-nota').value.trim(),
+        publicado: false
+    };
+
+    const { data, error } = await supabase
+        .from('contratos')
+        .insert([nuevo])
+        .select();
+
+    if (error) {
+        alert("Error al guardar: " + error.message);
+    } else {
+        contratos.push(data[0]); // Agregamos el nuevo objeto devuelto por la DB
+        render();
+    }
+}
+
+// Para marcar publicado (Update)
+async function marcarPublicado(id) {
+    const c = contratos.find(x => x.id === id);
+    const { data, error } = await supabase
+        .from('contratos')
+        .update({ publicado: !c.publicado })
+        .eq('id', id);
+
+    if (!error) {
+        c.publicado = !c.publicado;
+        render();
+    }
+}
+
+function agregarContrato() {
+  const contrato = document.getElementById('f-contrato').value.trim();
+  const banco = document.getElementById('f-banco').value.trim();
+  const tipo = document.getElementById('f-tipo').value;
+  const medio = document.getElementById('f-medio').value;
+  const fecha = document.getElementById('f-fecha').value;
+  const nota = document.getElementById('f-nota').value.trim();
+  if (!contrato || !banco || !fecha) {
+    const err = !contrato ? 'f-contrato' : !banco ? 'f-banco' : 'f-fecha';
+    document.getElementById(err).focus(); return;
+  }
+  contratos.push({id: Date.now(), contrato, banco, tipo, medio, fecha, nota, publicado: false});
+  document.getElementById('f-contrato').value='';
+  document.getElementById('f-banco').value='';
+  document.getElementById('f-nota').value='';
+  document.getElementById('f-fecha').value='';
+  guardar(); render();
+}
+
+function marcarPublicado(id) {
+  const c = contratos.find(x=>x.id===id);
+  if (c) { c.publicado = !c.publicado; guardar(); render(); }
+}
+
+function eliminar(id) {
+  contratos = contratos.filter(x=>x.id!==id);
+  guardar(); render();
+}
+
+function setFiltro(f, btn) {
+  filtro = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function fmtFecha(str) {
+  const [y,m,d] = str.split('-');
+  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${parseInt(d)} ${meses[parseInt(m)-1]} ${y}`;
+}
+
+function diasLabel(c) {
+  if (c.publicado) return '';
+  const d = diasDiff(c.fecha);
+  if (d < 0) return `<span class="dias-badge dias-pasado">${Math.abs(d)} día${Math.abs(d)!==1?'s':''} vencido</span>`;
+  if (d === 0) return `<span class="dias-badge dias-hoy">Hoy</span>`;
+  if (d === 1) return `<span class="dias-badge dias-manana">Mañana</span>`;
+  return `<span class="dias-badge dias-futuro">En ${d} días</span>`;
+}
+
+function render() {
+  const ahora = new Date().toLocaleDateString('es-HN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('fecha-hoy').textContent = ahora;
+
+  const alertas = contratos.filter(c=>alertaActiva(c));
+  const pendientes = contratos.filter(c=>!c.publicado);
+  const publicados = contratos.filter(c=>c.publicado);
+
+  document.getElementById('st-total').textContent = contratos.length;
+  document.getElementById('st-alerta').textContent = alertas.length;
+  document.getElementById('st-pend').textContent = pendientes.length;
+  document.getElementById('st-pub').textContent = publicados.length;
+
+  const banner = document.getElementById('banner-alertas');
+  if (alertas.length) {
+    banner.innerHTML = `<div class="alert-banner alert-warn"><i class="ti ti-bell" aria-hidden="true"></i><div><strong>Verificar ${alertas.length} contrato${alertas.length>1?'s':''}:</strong><div class="alert-list">${alertas.map(c=>`<div>Contrato <strong>${esc(c.contrato)}</strong> — ${esc(c.banco)} en ${esc(c.medio)} (${esc(c.tipo)}) publica ${diasDiff(c.fecha)===0?'hoy':'mañana'} ${fmtFecha(c.fecha)}</div>`).join('')}</div></div></div>`;
+  } else {
+    banner.innerHTML = `<div class="alert-banner alert-ok"><i class="ti ti-circle-check" aria-hidden="true"></i><span>Sin alertas urgentes para hoy ni mañana.</span></div>`;
+  }
+
+  let lista = [...contratos].sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  if (filtro === 'alerta') lista = lista.filter(c=>alertaActiva(c));
+  else if (filtro === 'pendiente') lista = lista.filter(c=>!c.publicado);
+  else if (filtro === 'publicado') lista = lista.filter(c=>c.publicado);
+
+  const cont = document.getElementById('lista-contratos');
+  if (!lista.length) {
+    cont.innerHTML = `<div class="empty-state"><i class="ti ti-file-off" aria-hidden="true"></i>No hay contratos para mostrar.</div>`;
+    return;
+  }
+
+  cont.innerHTML = lista.map(c => {
+    const esAlerta = alertaActiva(c);
+    const medioPill = c.medio === 'Heraldo' ? 'pill-heraldo' : 'pill-laprensa';
+    const tipoPill = c.tipo === 'Subasta' ? 'pill-subasta' : 'pill-edicto';
+    const estadoPill = c.publicado ? 'pill-publicado' : 'pill-pendiente';
+    const estadoTxt = c.publicado ? 'Publicado' : 'Pendiente';
+    return `<div class="contract-card${esAlerta?' alerta-hoy':''}${c.publicado?' publicado':''}">
+      <div class="cc-top">
+        <div class="cc-main">
+          <div class="cc-banco">${esc(c.banco)} <span style="font-size:12px;font-weight:400;color:var(--color-text-secondary)">#${esc(c.contrato)}</span></div>
+          <div class="cc-meta">
+            <span class="pill ${medioPill}">${esc(c.medio)}</span>
+            <span class="pill ${tipoPill}">${esc(c.tipo)}</span>
+            <span class="pill ${estadoPill}">${estadoTxt}</span>
+            <span style="font-size:12px;color:var(--color-text-secondary);display:flex;align-items:center;gap:3px"><i class="ti ti-calendar" style="font-size:13px" aria-hidden="true"></i>${fmtFecha(c.fecha)}</span>
+            ${diasLabel(c)}
+          </div>
+        </div>
+        <div class="cc-actions">
+          <button class="cc-btn" onclick="marcarPublicado(${c.id})" title="${c.publicado?'Marcar pendiente':'Marcar publicado'}"><i class="ti ti-${c.publicado?'rotate-clockwise':'circle-check'}" aria-hidden="true"></i></button>
+          <button class="cc-btn del" onclick="eliminar(${c.id})" title="Eliminar"><i class="ti ti-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      ${c.nota ? `<div class="cc-nota"><i class="ti ti-note" style="font-size:13px;vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>${esc(c.nota)}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('f-fecha').value = today;
+});
+document.getElementById('f-fecha').value = new Date().toISOString().slice(0,10);
+
+cargar();
+
+function limpiarPublicados() {
+    if (confirm("¿Estás seguro de que quieres eliminar todos los contratos marcados como publicados?")) {
+        contratos = contratos.filter(c => !c.publicado);
+        guardar();
+        render();
+    }
+}
+
+</script>
