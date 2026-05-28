@@ -186,12 +186,15 @@ h1{
     </div>
 
 <script>
-// 1. Configuración única
-const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
-//const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);//
+// 1. Configuración de Supabase
+    const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
+    
+    // Usamos window.supabase para asegurar que llamamos a la librería externa
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-let contratos = [];
-let filtro = 'todos';
+    let contratos = [];
+    let filtro = 'todos';
 
 // 2. Función de carga inicial
 async function cargar() {
