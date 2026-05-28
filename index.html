@@ -161,7 +161,6 @@ h1{
       <label>Observaciones (opcional)</label>
       <textarea id="f-nota" placeholder="Detalles del contrato, instrucciones especiales..."></textarea>
     </div>
-    <button class="btn-add" onclick="agregarContrato()"><i class="ti ti-plus" aria-hidden="true"></i> Registrar contrato</button>
   </div>
 
   <div class="section-header">
@@ -176,7 +175,12 @@ h1{
   <div class="contracts-list" id="lista-contratos"></div>
 </div>
 
+<div class="filter-row">
+    <button class="filter-btn1" onclick="limpiarPublicados()">Limpiar Publicados</button>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 // 1. Configuración de Supabase
     const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';
