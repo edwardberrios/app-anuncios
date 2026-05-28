@@ -186,84 +186,83 @@ h1{
     </div>
 
 <script>
-    const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// 1. Configuración única
+const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    let contratos = [];
-    let filtro = 'todos';
+let contratos = [];
+let filtro = 'todos';
 
-    // 1. CARGAR DATOS DE SUPABASE
-    async function cargar() {
-        const { data, error } = await supabase.from('contratos').select('*');
-        if (error) {
-            console.error("Error al cargar:", error);
-        } else {
-            contratos = data || [];
-            render();
-        }
+// 2. Función de carga inicial
+async function cargar() {
+    const { data, error } = await supabase.from('contratos').select('*');
+    if (error) {
+        console.error("Error al cargar:", error);
+    } else {
+        contratos = data || [];
+        render();
     }
+}
 
-    // 2. AGREGAR NUEVO A SUPABASE
-    async function agregarContrato() {
-        const nuevo = {
-            contrato: document.getElementById('f-contrato').value.trim(),
-            banco: document.getElementById('f-banco').value.trim(),
-            tipo: document.getElementById('f-tipo').value,
-            medio: document.getElementById('f-medio').value,
-            fecha: document.getElementById('f-fecha').value,
-            nota: document.getElementById('f-nota').value.trim(),
-            publicado: false
-        };
+// 3. Agregar contrato
+async function agregarContrato() {
+    const nuevo = {
+        contrato: document.getElementById('f-contrato').value.trim(),
+        banco: document.getElementById('f-banco').value.trim(),
+        tipo: document.getElementById('f-tipo').value,
+        medio: document.getElementById('f-medio').value,
+        fecha: document.getElementById('f-fecha').value,
+        nota: document.getElementById('f-nota').value.trim(),
+        publicado: false
+    };
 
-        if (!nuevo.contrato || !nuevo.banco || !nuevo.fecha) return;
+    if (!nuevo.contrato || !nuevo.banco || !nuevo.fecha) return;
 
-        const { data, error } = await supabase.from('contratos').insert([nuevo]).select();
-
-        if (error) {
-            alert("Error: " + error.message);
-        } else {
-            // Limpiar campos
-            document.getElementById('f-contrato').value = '';
-            document.getElementById('f-banco').value = '';
-            document.getElementById('f-nota').value = '';
-            cargar(); // Recargamos para refrescar la lista desde la BD
-        }
-    }
-
-    // 3. CAMBIAR ESTADO (MARCAR PUBLICADO)
-    async function marcarPublicado(id) {
-        const c = contratos.find(x => x.id === id);
-        const { error } = await supabase
-            .from('contratos')
-            .update({ publicado: !c.publicado })
-            .eq('id', id);
-
-        if (!error) cargar();
-    }
-
-    // 4. ELIMINAR UNO
-    async function eliminar(id) {
-        const { error } = await supabase.from('contratos').delete().eq('id', id);
-        if (!error) cargar();
-    }
-
-    // 5. LIMPIAR PUBLICADOS EN SUPABASE
-    async function limpiarPublicados() {
-        if (confirm("¿Borrar todos los publicados de la base de datos?")) {
-            const { error } = await supabase.from('contratos').delete().eq('publicado', true);
-            if (!error) cargar();
-        }
-    }
-
-    // --- FUNCIONES DE APOYO (RENDER Y CÁLCULOS) ---
-    // (Mantén tus funciones actuales: hoy(), diasDiff(), alertaActiva(), esc(), fmtFecha(), diasLabel(), render(), setFiltro())
-    // Asegúrate de que no tengan el código de "localStorage" adentro.
-    
-    // Al iniciar:
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('f-fecha').value = new Date().toISOString().slice(0, 10);
+    const { data, error } = await supabase.from('contratos').insert([nuevo]).select();
+    if (error) {
+        alert("Error: " + error.message);
+    } else {
+        document.getElementById('f-contrato').value = '';
+        document.getElementById('f-banco').value = '';
+        document.getElementById('f-nota').value = '';
         cargar();
-    });
-</script>
+    }
+}
 
+// 4. Marcar publicado
+async function marcarPublicado(id) {
+    const c = contratos.find(x => x.id === id);
+    if (!c) return;
+    const { error } = await supabase.from('contratos').update({ publicado: !c.publicado }).eq('id', id);
+    if (!error) cargar();
+}
+
+// 5. Eliminar uno
+async function eliminar(id) {
+    const { error } = await supabase.from('contratos').delete().eq('id', id);
+    if (!error) cargar();
+}
+
+// 6. Limpiar publicados
+async function limpiarPublicados() {
+    if (confirm("¿Borrar todos los publicados?")) {
+        const { error } = await supabase.from('contratos').delete().eq('publicado', true);
+        if (!error) cargar();
+    }
+}
+
+// 7. Filtros y helpers (render, etc.)
+function setFiltro(f, btn) {
+    filtro = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+}
+
+// ... (Incluye aquí tus funciones existentes: render, fmtFecha, alertaActiva, diasDiff, etc.)
+// ¡Asegúrate de que no tengan nada de 'localStorage' ni duplicados!
+
+// Inicialización
+cargar();
+</script>
