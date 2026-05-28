@@ -1,25 +1,8 @@
+
 import { createClient } from '@supabase/supabase-js'
-
-// 1. Inicializa el cliente con tus credenciales
-const supabaseUrl = 'https://pmqqxqoytswntsejdold.supabase.co/rest/v1/'
-const supabaseKey = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec'
+const supabaseUrl = 'https://pmqqxqoytswntsejdold.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
-
-// 2. Función para llamar a la tabla
-async function obtenerDatos() {
-  const { data, error } = await supabase
-    .from('MedliosArt') // Reemplaza con el nombre de tu tabla
-    .select('*')              // Trae todas las columnas
-
-  if (error) {
-    console.error('Error al obtener los datos:', error)
-  } else {
-    console.log('Datos obtenidos:', data)
-  }
-}
-
-// Llama a la función
-obtenerDatos()
 
 let contratos = [];
 let filtro = 'todos';
