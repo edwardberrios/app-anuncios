@@ -1,0 +1,106 @@
+:root {
+    --font-sans: 'Segoe UI', Arial, sans-serif;
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #666666;
+    --color-text-tertiary: #999999;
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f4f4f4;
+    --color-border-primary: #cccccc;
+    --color-border-secondary: #dddddd;
+    --color-border-tertiary: #eeeeee;
+    --border-radius-md: 6px;
+    --border-radius-lg: 10px;
+}
+/* Asegura que el banner de alertas no se escape del ancho centrado */
+#banner-alertas {
+    width: 100%;
+}
+.app {
+    padding: 1rem;
+    font-family: var(--font-sans);
+    
+    /* ESTO ES LO QUE CENTRA Y LIMITA EL ANCHO */
+    max-width: 800px; /* Limita el ancho total a 800 píxeles */
+    margin: 0 auto;   /* El "auto" en los márgenes laterales centra el bloque */
+}
+h1{
+    text-align: center;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.filter-row {
+  justify-content: center;
+}
+.filter-btn1 {
+  background-color: #326ead; /* Color principal */
+  color: #ffffff; /* Color del texto */
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efecto de elevación */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  width: 15%;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+.app{padding:1rem 0;font-family:var(--font-sans)}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.topbar p{font-size:13px;color:var(--color-text-secondary);margin-top:2px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1.25rem}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 14px}
+.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:3px}
+.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.alert-banner{border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:1.25rem;display:flex;align-items:flex-start;gap:10px;font-size:13px}
+.alert-banner i{font-size:18px;flex-shrink:0;margin-top:1px}
+.alert-warn{background:#FAEEDA;color:#633806;border:0.5px solid #EF9F27}
+.alert-warn i{color:#854F0B}
+.alert-ok{background:#EAF3DE;color:#27500A;border:0.5px solid #97C459}
+.alert-ok i{color:#3B6D11}
+.alert-list{display:flex;flex-direction:column;gap:6px;width:100%}
+.form-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1.25rem}
+.form-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:10px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:12px;color:var(--color-text-secondary)}
+.form-group input,.form-group select{font-size:13px;font-family:var(--font-sans)}
+.form-group textarea{font-size:13px;font-family:var(--font-sans);padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical;min-height:60px}
+.btn-add{padding:8px 16px;font-size:13px;font-family:var(--font-sans);display:flex;align-items:center;gap:5px;cursor:pointer}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.section-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{font-size:12px;padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:10px;background:none;cursor:pointer;color:var(--color-text-secondary);font-family:var(--font-sans)}
+.filter-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+.contracts-list{display:flex;flex-direction:column;gap:8px}
+.contract-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 14px}
+.contract-card.alerta-hoy{border-color:#EF9F27;border-width:1px}
+.contract-card.publicado{opacity:.65}
+.cc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cc-main{flex:1}
+.cc-banco{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.cc-meta{font-size:12px;color:var(--color-text-secondary);margin-top:2px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cc-actions{display:flex;gap:4px;flex-shrink:0}
+.cc-btn{background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);padding:3px;border-radius:4px;font-size:16px;display:flex;align-items:center}
+.cc-btn:hover{color:var(--color-text-primary)}
+.cc-btn.del:hover{color:#D85A30}
+.pill{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;white-space:nowrap}
+.pill-heraldo{background:#E6F1FB;color:#0C447C}
+.pill-laprensa{background:#EEEDFE;color:#3C3489}
+.pill-subasta{background:#FAEEDA;color:#633806}
+.pill-edicto{background:#EAF3DE;color:#27500A}
+.pill-alerta{background:#FAEEDA;color:#633806}
+.pill-publicado{background:#EAF3DE;color:#27500A}
+.pill-pendiente{background:#F1EFE8;color:#444441}
+.cc-nota{font-size:12px;color:var(--color-text-secondary);margin-top:6px;padding-top:6px;border-top:0.5px solid var(--color-border-tertiary)}
+.empty-state{text-align:center;padding:2rem;color:var(--color-text-tertiary);font-size:13px}
+.empty-state i{font-size:30px;display:block;margin-bottom:8px;opacity:.4}
+.dias-badge{font-size:11px;font-weight:500}
+.dias-hoy{color:#854F0B}
+.dias-manana{color:#185FA5}
+.dias-pasado{color:#A32D2D}
+.dias-futuro{color:#3B6D11}
