@@ -1,266 +1,69 @@
-<style>
-  :root {
-    --font-sans: 'Segoe UI', Arial, sans-serif;
-    --color-text-primary: #1a1a1a;
-    --color-text-secondary: #666666;
-    --color-text-tertiary: #999999;
-    --color-background-primary: #ffffff;
-    --color-background-secondary: #f4f4f4;
-    --color-border-primary: #cccccc;
-    --color-border-secondary: #dddddd;
-    --color-border-tertiary: #eeeeee;
-    --border-radius-md: 6px;
-    --border-radius-lg: 10px;
-}
-/* Asegura que el banner de alertas no se escape del ancho centrado */
-#banner-alertas {
-    width: 100%;
-}
-.app {
-    padding: 1rem;
-    font-family: var(--font-sans);
-    
-    /* ESTO ES LO QUE CENTRA Y LIMITA EL ANCHO */
-    max-width: 800px; /* Limita el ancho total a 800 píxeles */
-    margin: 0 auto;   /* El "auto" en los márgenes laterales centra el bloque */
-}
-h1{
-    text-align: center;
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.filter-row {
-  justify-content: center;
-}
-.filter-btn1 {
-  background-color: #326ead; /* Color principal */
-  color: #ffffff; /* Color del texto */
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px; /* Bordes redondeados */
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efecto de elevación */
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  text-align: center;
-  width: 15%;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seguimiento de Anuncios</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-*{box-sizing:border-box;margin:0;padding:0}
-.app{padding:1rem 0;font-family:var(--font-sans)}
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
-.topbar h1{font-size:22px;font-weight:500;color:var(--color-text-primary)}
-.topbar p{font-size:13px;color:var(--color-text-secondary);margin-top:2px}
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1.25rem}
-.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 14px}
-.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:3px}
-.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
-.alert-banner{border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:1.25rem;display:flex;align-items:flex-start;gap:10px;font-size:13px}
-.alert-banner i{font-size:18px;flex-shrink:0;margin-top:1px}
-.alert-warn{background:#FAEEDA;color:#633806;border:0.5px solid #EF9F27}
-.alert-warn i{color:#854F0B}
-.alert-ok{background:#EAF3DE;color:#27500A;border:0.5px solid #97C459}
-.alert-ok i{color:#3B6D11}
-.alert-list{display:flex;flex-direction:column;gap:6px;width:100%}
-.form-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1.25rem}
-.form-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;display:flex;align-items:center;gap:7px}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:10px}
-.form-group{display:flex;flex-direction:column;gap:4px}
-.form-group label{font-size:12px;color:var(--color-text-secondary)}
-.form-group input,.form-group select{font-size:13px;font-family:var(--font-sans)}
-.form-group textarea{font-size:13px;font-family:var(--font-sans);padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical;min-height:60px}
-.btn-add{padding:8px 16px;font-size:13px;font-family:var(--font-sans);display:flex;align-items:center;gap:5px;cursor:pointer}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.section-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.filter-row{display:flex;gap:6px;flex-wrap:wrap}
-.filter-btn{font-size:12px;padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:10px;background:none;cursor:pointer;color:var(--color-text-secondary);font-family:var(--font-sans)}
-.filter-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
-.contracts-list{display:flex;flex-direction:column;gap:8px}
-.contract-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 14px}
-.contract-card.alerta-hoy{border-color:#EF9F27;border-width:1px}
-.contract-card.publicado{opacity:.65}
-.cc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
-.cc-main{flex:1}
-.cc-banco{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.cc-meta{font-size:12px;color:var(--color-text-secondary);margin-top:2px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.cc-actions{display:flex;gap:4px;flex-shrink:0}
-.cc-btn{background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);padding:3px;border-radius:4px;font-size:16px;display:flex;align-items:center}
-.cc-btn:hover{color:var(--color-text-primary)}
-.cc-btn.del:hover{color:#D85A30}
-.pill{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;white-space:nowrap}
-.pill-heraldo{background:#E6F1FB;color:#0C447C}
-.pill-laprensa{background:#EEEDFE;color:#3C3489}
-.pill-subasta{background:#FAEEDA;color:#633806}
-.pill-edicto{background:#EAF3DE;color:#27500A}
-.pill-alerta{background:#FAEEDA;color:#633806}
-.pill-publicado{background:#EAF3DE;color:#27500A}
-.pill-pendiente{background:#F1EFE8;color:#444441}
-.cc-nota{font-size:12px;color:var(--color-text-secondary);margin-top:6px;padding-top:6px;border-top:0.5px solid var(--color-border-tertiary)}
-.empty-state{text-align:center;padding:2rem;color:var(--color-text-tertiary);font-size:13px}
-.empty-state i{font-size:30px;display:block;margin-bottom:8px;opacity:.4}
-.dias-badge{font-size:11px;font-weight:500}
-.dias-hoy{color:#854F0B}
-.dias-manana{color:#185FA5}
-.dias-pasado{color:#A32D2D}
-.dias-futuro{color:#3B6D11}
+    <h1 class="sr-only">Sistema Filtro</h1>
+    <div class="app">
+      <div class="topbar">
+        <div>
+          <h1>Seguimiento de anuncios</h1>
+          <p id="fecha-hoy"></p>
+        </div>
+      </div>
 
-</style>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-label">Total contratos</div><div class="stat-val" id="st-total">0</div></div>
+        <div class="stat"><div class="stat-label">Alerta mañana</div><div class="stat-val" id="st-alerta" style="color:#854F0B">0</div></div>
+        <div class="stat"><div class="stat-label">Pendientes</div><div class="stat-val" id="st-pend">0</div></div>
+        <div class="stat"><div class="stat-label">Publicados</div><div class="stat-val" id="st-pub" style="color:#3B6D11">0</div></div>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<h1 class="sr-only">Sistema Filtro</h1>
-<div class="app">
-  <div class="topbar">
-    <div>
-      <h1>Seguimiento de anuncios</h1>
-      <p id="fecha-hoy"></p>
+      <div id="banner-alertas"></div>
+
+      <div class="form-card">
+        <div class="form-title"><i class="ti ti-plus" aria-hidden="true"></i> Nuevo contrato</div>
+        <div class="form-grid">
+          <div class="form-group"><label>N° contrato</label><input type="text" id="f-contrato" /></div>
+          <div class="form-group"><label>Banco / Cliente</label><input type="text" id="f-banco" /></div>
+          <div class="form-group">
+            <label>Tipo</label>
+            <select id="f-tipo"><option value="Subasta">Subasta</option><option value="Edicto">Edicto</option></select>
+          </div>
+          <div class="form-group">
+            <label>Medio</label>
+            <select id="f-medio"><option value="Heraldo">Heraldo</option><option value="La Prensa">La Prensa</option></select>
+          </div>
+          <div class="form-group"><label>Fecha</label><input type="date" id="f-fecha" /></div>
+        </div>
+        <div class="form-group" style="margin-bottom:10px">
+          <label>Observaciones</label>
+          <textarea id="f-nota"></textarea>
+        </div>
+        <button class="btn-add" onclick="agregarContrato()"><i class="ti ti-plus"></i> Registrar contrato</button>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Contratos registrados</span>
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="setFiltro('todos',this)">Todos</button>
+          <button class="filter-btn" onclick="setFiltro('alerta',this)">Alertas</button>
+          <button class="filter-btn" onclick="setFiltro('pendiente',this)">Pendientes</button>
+          <button class="filter-btn" onclick="setFiltro('publicado',this)">Publicados</button>
+        </div>
+      </div>
+      <div class="contracts-list" id="lista-contratos"></div>
     </div>
-  </div>
 
-  <div class="stats-row">
-    <div class="stat"><div class="stat-label">Total contratos</div><div class="stat-val" id="st-total">0</div></div>
-    <div class="stat"><div class="stat-label">Alerta mañana</div><div class="stat-val" id="st-alerta" style="color:#854F0B">0</div></div>
-    <div class="stat"><div class="stat-label">Pendientes</div><div class="stat-val" id="st-pend">0</div></div>
-    <div class="stat"><div class="stat-label">Publicados</div><div class="stat-val" id="st-pub" style="color:#3B6D11">0</div></div>
-  </div>
-
-  <div id="banner-alertas"></div>
-
-  <div class="form-card">
-    <div class="form-title"><i class="ti ti-plus" aria-hidden="true"></i> Nuevo contrato</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>N° contrato</label>
-        <input type="text" id="f-contrato" placeholder="Ej: 2024-001" />
-      </div>
-      <div class="form-group">
-        <label>Banco / Cliente</label>
-        <input type="text" id="f-banco" placeholder="Ej: Banco Atlántida" />
-      </div>
-      <div class="form-group">
-        <label>Tipo</label>
-        <select id="f-tipo">
-          <option value="Subasta">Subasta</option>
-          <option value="Edicto">Edicto</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Medio</label>
-        <select id="f-medio">
-          <option value="Heraldo">Heraldo</option>
-          <option value="La Prensa">La Prensa</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Fecha de publicación</label>
-        <input type="date" id="f-fecha" />
-      </div>
+    <div class="filter-row" style="margin-top:20px;">
+        <button class="filter-btn1" onclick="limpiarPublicados()">Limpiar Publicados</button>
     </div>
-    <div class="form-group" style="margin-bottom:10px">
-      <label>Observaciones (opcional)</label>
-      <textarea id="f-nota" placeholder="Detalles del contrato, instrucciones especiales..."></textarea>
-    </div>
-  </div>
 
-  <div class="section-header">
-    <span class="section-title">Contratos registrados</span>
-    <div class="filter-row">
-      <button class="filter-btn active" onclick="setFiltro('todos',this)">Todos</button>
-      <button class="filter-btn" onclick="setFiltro('alerta',this)">Alertas</button>
-      <button class="filter-btn" onclick="setFiltro('pendiente',this)">Pendientes</button>
-      <button class="filter-btn" onclick="setFiltro('publicado',this)">Publicados</button>
-    </div>
-  </div>
-  <div class="contracts-list" id="lista-contratos"></div>
-</div>
-
-<div class="filter-row">
-    <button class="filter-btn1" onclick="limpiarPublicados()">Limpiar Publicados</button>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-// 1. Configuración de Supabase
-    const SUPABASE_URL = 'https://pmqqxqoytswntsejdold.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
-    
-    // Usamos window.supabase para asegurar que llamamos a la librería externa
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    let contratos = [];
-    let filtro = 'todos';
-
-// 2. Función de carga inicial
-async function cargar() {
-    const { data, error } = await supabase.from('contratos').select('*');
-    if (error) {
-        console.error("Error al cargar:", error);
-    } else {
-        contratos = data || [];
-        render();
-    }
-}
-
-// 3. Agregar contrato
-async function agregarContrato() {
-    const nuevo = {
-        contrato: document.getElementById('f-contrato').value.trim(),
-        banco: document.getElementById('f-banco').value.trim(),
-        tipo: document.getElementById('f-tipo').value,
-        medio: document.getElementById('f-medio').value,
-        fecha: document.getElementById('f-fecha').value,
-        nota: document.getElementById('f-nota').value.trim(),
-        publicado: false
-    };
-
-    if (!nuevo.contrato || !nuevo.banco || !nuevo.fecha) return;
-
-    const { data, error } = await supabase.from('contratos').insert([nuevo]).select();
-    if (error) {
-        alert("Error: " + error.message);
-    } else {
-        document.getElementById('f-contrato').value = '';
-        document.getElementById('f-banco').value = '';
-        document.getElementById('f-nota').value = '';
-        cargar();
-    }
-}
-
-// 4. Marcar publicado
-async function marcarPublicado(id) {
-    const c = contratos.find(x => x.id === id);
-    if (!c) return;
-    const { error } = await supabase.from('contratos').update({ publicado: !c.publicado }).eq('id', id);
-    if (!error) cargar();
-}
-
-// 5. Eliminar uno
-async function eliminar(id) {
-    const { error } = await supabase.from('contratos').delete().eq('id', id);
-    if (!error) cargar();
-}
-
-// 6. Limpiar publicados
-async function limpiarPublicados() {
-    if (confirm("¿Borrar todos los publicados?")) {
-        const { error } = await supabase.from('contratos').delete().eq('publicado', true);
-        if (!error) cargar();
-    }
-}
-
-// 7. Filtros y helpers (render, etc.)
-function setFiltro(f, btn) {
-    filtro = f;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    render();
-}
-
-// ... (Incluye aquí tus funciones existentes: render, fmtFecha, alertaActiva, diasDiff, etc.)
-// ¡Asegúrate de que no tengan nada de 'localStorage' ni duplicados!
-
-// Inicialización
-cargar();
-</script>
+    <script src="app.js"></script>
+</body>
+</html>
