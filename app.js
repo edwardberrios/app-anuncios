@@ -14,15 +14,14 @@ async function cargar() {
 }
 
 async function agregarContrato() {
-    const nuevo = {
-        contrato: document.getElementById('f-contrato').value.trim(),
-        banco: document.getElementById('f-banco').value.trim(),
-        tipo: document.getElementById('f-tipo').value,
-        medio: document.getElementById('f-medio').value,
-        fecha: document.getElementById('f-fecha').value,
-        nota: document.getElementById('f-nota').value.trim(),
-        publicado: false
-    };
+    console.log("El botón llamó a la función correctamente"); // <-- Agrega esto
+    
+    // Si este mensaje NO aparece en la consola al hacer clic,
+    // el problema es que el HTML no está encontrando el archivo app.js
+    
+    const nuevo = { ... }; 
+    // ... resto de tu código
+}
     if (!nuevo.contrato || !nuevo.banco) return;
     const { error } = await supabase.from('contratos').insert([nuevo]);
     if (error) alert(error.message);
