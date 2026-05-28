@@ -1,4 +1,4 @@
-const SUPABASE_KEY = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
+const supabase_key = 'sb_publishable_iA2u22FrM7z8PuLUBmFosw_zuUXU5ec';
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let contratos = [];
