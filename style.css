@@ -15,6 +15,11 @@
 #banner-alertas {
     width: 100%;
 }
+.sr-only{
+    text-align: center;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
 .app {
     padding: 1rem;
     font-family: var(--font-sans);
