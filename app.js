@@ -36,12 +36,12 @@ async function cargar() {
   
   if (!contratos.length) {
     // Tus datos de ejemplo iniciales...
-    const base = new Date(); base.setHours(0,0,0,0);
-    const fmt = (d) => { const dd = new Date(base); dd.setDate(dd.getDate()+d); return dd.toISOString().slice(0,10); };
-    contratos = [
-      {id:1, contrato:'2024-101', banco:'Banco Atlántida', tipo:'Subasta', medio:'Heraldo', fecha: fmt(1), nota:'Verificar página par', publicado:false},
-      {id:2, contrato:'2024-102', banco:'Banco Occidente', tipo:'Edicto', medio:'La Prensa', fecha: fmt(3), nota:'', publicado:false}
-    ];
+   // const base = new Date(); base.setHours(0,0,0,0);
+    //const fmt = (d) => { const dd = new Date(base); dd.setDate(dd.getDate()+d); return dd.toISOString().slice(0,10); };
+   // contratos = [
+  //    {id:1, contrato:'2024-101', banco:'Banco Atlántida', tipo:'Subasta', medio:'Heraldo', fecha: fmt(1), nota:'Verificar página par', publicado:false},
+  //    {id:2, contrato:'2024-102', banco:'Banco Occidente', tipo:'Edicto', medio:'La Prensa', fecha: fmt(3), nota:'', publicado:false}
+ //   ];
   }
   render();
 }
