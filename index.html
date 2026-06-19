@@ -8,57 +8,72 @@
 </head>
 <body>
 
-    <h1 class="sr-only">Sistema Filtro</h1>
-    <div class="app">
-      <div class="topbar">
-        <div>
-          <h1>Seguimiento de anuncios</h1>
-          <p id="fecha-hoy"></p>
-        </div>
-      </div>
-
-      <div class="stats-row">
-        <div class="stat"><div class="stat-label">Total contratos</div><div class="stat-val" id="st-total">0</div></div>
-        <div class="stat"><div class="stat-label">Alerta mañana</div><div class="stat-val" id="st-alerta" style="color:#854F0B">0</div></div>
-        <div class="stat"><div class="stat-label">Pendientes</div><div class="stat-val" id="st-pend">0</div></div>
-        <div class="stat"><div class="stat-label">Publicados</div><div class="stat-val" id="st-pub" style="color:#3B6D11">0</div></div>
-      </div>
-
-      <div id="banner-alertas"></div>
-
-      <div class="form-card">
-        <div class="form-title"><i class="ti ti-plus" aria-hidden="true"></i> Nuevo contrato</div>
-        <div class="form-grid">
-          <div class="form-group"><label>N° contrato</label><input type="text" id="f-contrato" /></div>
-          <div class="form-group"><label>Banco / Cliente</label><input type="text" id="f-banco" /></div>
-          <div class="form-group">
-            <label>Tipo</label>
-            <select id="f-tipo"><option value="Subasta">Subasta</option><option value="Edicto">Edicto</option></select>
-          </div>
-          <div class="form-group">
-            <label>Medio</label>
-            <select id="f-medio"><option value="Heraldo">Heraldo</option><option value="La Prensa">La Prensa</option></select>
-          </div>
-          <div class="form-group"><label>Fecha</label><input type="date" id="f-fecha" /></div>
-        </div>
-        <div class="form-group" style="margin-bottom:10px">
-          <label>Observaciones</label>
-          <textarea id="f-nota"></textarea>
-        </div>
-        <button class="btn-add" onclick="agregarContrato()"><i class="ti ti-plus"></i> Registrar contrato</button>
-      </div>
-
-      <div class="section-header">
-        <span class="section-title">Contratos registrados</span>
-        <div class="filter-row">
-          <button class="filter-btn active" onclick="setFiltro('todos',this)">Todos</button>
-          <button class="filter-btn" onclick="setFiltro('alerta',this)">Alertas</button>
-          <button class="filter-btn" onclick="setFiltro('pendiente',this)">Pendientes</button>
-          <button class="filter-btn" onclick="setFiltro('publicado',this)">Publicados</button>
-        </div>
-      </div>
-      <div class="contracts-list" id="lista-contratos"></div>
+    <h2 class="sr-only">Sistema de seguimiento de solicitudes de anuncios para cliente con alertas de publicación</h2>
+<div class="app">
+  <div class="topbar">
+    <div>
+      <h1>Seguimiento de anuncios</h1>
+      <p id="fecha-hoy"></p>
     </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-label">Total contratos</div><div class="stat-val" id="st-total">0</div></div>
+    <div class="stat"><div class="stat-label">Alerta mañana</div><div class="stat-val" id="st-alerta" style="color:#854F0B">0</div></div>
+    <div class="stat"><div class="stat-label">Pendientes</div><div class="stat-val" id="st-pend">0</div></div>
+    <div class="stat"><div class="stat-label">Publicados</div><div class="stat-val" id="st-pub" style="color:#3B6D11">0</div></div>
+  </div>
+
+  <div id="banner-alertas"></div>
+
+  <div class="form-card">
+    <div class="form-title"><i class="ti ti-plus" aria-hidden="true"></i> Nuevo contrato</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>N° contrato</label>
+        <input type="text" id="f-contrato" placeholder="Ej: 2024-001" />
+      </div>
+      <div class="form-group">
+        <label>Banco / Cliente</label>
+        <input type="text" id="f-banco" placeholder="Ej: Banco Atlántida" />
+      </div>
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="f-tipo">
+          <option value="Subasta">Subasta</option>
+          <option value="Edicto">Edicto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Medio</label>
+        <select id="f-medio">
+          <option value="Heraldo">Heraldo</option>
+          <option value="La Prensa">La Prensa</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fecha de publicación</label>
+        <input type="date" id="f-fecha" />
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:10px">
+      <label>Observaciones (opcional)</label>
+      <textarea id="f-nota" placeholder="Detalles del contrato, instrucciones especiales..."></textarea>
+    </div>
+    <button class="btn-add" onclick="agregarContrato()"><i class="ti ti-plus" aria-hidden="true"></i> Registrar contrato</button>
+  </div>
+
+  <div class="section-header">
+    <span class="section-title">Contratos registrados</span>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFiltro('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="setFiltro('alerta',this)">Alertas</button>
+      <button class="filter-btn" onclick="setFiltro('pendiente',this)">Pendientes</button>
+      <button class="filter-btn" onclick="setFiltro('publicado',this)">Publicados</button>
+    </div>
+  </div>
+  <div class="contracts-list" id="lista-contratos"></div>
+</div>
 
     <div class="filter-row" style="margin-top:20px;">
         <button class="filter-btn1" onclick="limpiarPublicados()">Limpiar Publicados</button>
